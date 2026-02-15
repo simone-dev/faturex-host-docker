@@ -1,4 +1,4 @@
-FROM 9.0.115-jre8-temurin-jammy
+FROM 9-jdk8-corretto-al2
 
 # 2. Create a non-privileged user
 RUN groupadd -r tomcat && useradd -r -g tomcat tomcat
