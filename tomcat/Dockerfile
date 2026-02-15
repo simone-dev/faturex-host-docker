@@ -17,8 +17,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     fc-cache -f && \
     rm -rf /var/lib/apt/lists/*
 
-
+RUN mkdir -p /opt/apk && chown tomcat:tomcat /opt/apk
 USER tomcat
-RUN mkdir -p /opt/apk 
+ 
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
