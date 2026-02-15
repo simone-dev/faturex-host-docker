@@ -1,4 +1,4 @@
-FROM 9-jdk8-corretto-al2
+FROM tomcat:9.0-jre8
 
 # 2. Create a non-privileged user
 RUN groupadd -r tomcat && useradd -r -g tomcat tomcat
