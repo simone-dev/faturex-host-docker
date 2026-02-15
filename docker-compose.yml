@@ -51,6 +51,7 @@ services:
         networks:
             - snet
     facturex-certbot:
+        container_name: facturex-certbot
         build:
             context: ./certbot
         volumes:
