@@ -20,6 +20,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN mkdir -p /opt/apk && chown tomcat:tomcat /opt/apk
 RUN chown tomcat:tomcat /usr/local/tomcat/logs
 RUN mkdir -p /opt/tomcat/logs && chown tomcat:tomcat /opt/tomcat/logs
+RUN chmod -R 777 /opt/apk
+RUN chmod -R 777 /usr/local/tomcat/logs
+RUN chmod -R 777 /opt/tomcat/logs
 USER tomcat
  
 EXPOSE 8080
