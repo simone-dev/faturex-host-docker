@@ -45,22 +45,22 @@ services:
             - "facturex-tomcat"
         volumes:
             - ./nginx/nginx.conf:/etc/nginx/conf.d:ro
-            - ./data/certbot/conf:/etc/letsencrypt:ro
-            - ./data/certbot/www:/var/www/certbot:ro
-        command: "/bin/sh -c 'while :; do sleep 12h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+           # - ./data/certbot/conf:/etc/letsencrypt:ro
+           # - ./data/certbot/www:/var/www/certbot:ro
+       # command: "/bin/sh -c 'while :; do sleep 12h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
         networks:
             - snet
-    facturex-certbot:
-        container_name: facturex-certbot
-        build:
-            context: ./certbot
-        volumes:
-            - ./data/certbot/conf:/etc/letsencrypt
-            - ./data/certbot/www:/var/www/certbot
+   # facturex-certbot:
+   #     container_name: facturex-certbot
+   #     build:
+   #         context: ./certbot
+   #     volumes:
+   #         - ./data/certbot/conf:/etc/letsencrypt
+   #         - ./data/certbot/www:/var/www/certbot
         # This script keeps the container alive and checks for renewals every 12 hours
-        command: "trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;"
-        networks:
-            - snet
+   #     command: "trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;"
+   #     networks:
+   #         - snet
 networks:
     snet:
 
