@@ -1,0 +1,1 @@
+export JAVA_OPTS="-Djava.awt.headless=true -Dfile.encoding=UTF-8 -server -Xms512m -Xmx1536m -XX:PermSize=256m -XX:MaxPermSize=768m -Duser.timezone=Africa/Maputo -Dsun.net.http.allowRestrictedHeaders=true"
