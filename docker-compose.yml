@@ -6,12 +6,6 @@ services:
         restart: always
         ports:
             - "8080:8080"
-        healthcheck:
-            test: ["CMD", "curl", "-f", "http://localhost:8080/"]
-            interval: 30s
-            timeout: 10s
-            retries: 3
-            start_period: 40s # Give Tomcat 40s to boot before starting checks
         networks:
             - snet
         depends_on:
@@ -48,8 +42,7 @@ services:
             - "80:80"
             - "443:443"
         depends_on:
-            facturex-tomcat:
-                condition: service_healthy # Nginx waits for Tomcat to be "Healthy"
+            - "facturex-tomcat"
         volumes:
             - './nginx/nginx.conf:/etc/nginx/nginx.conf'
             - './data/certbot/conf:/etc/letsencrypt'
