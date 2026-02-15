@@ -11,20 +11,11 @@ RUN sed -i 's/port="8005" shutdown="SHUTDOWN"/port="-1" shutdown="SHUTDOWN"/' /u
 
 ADD setenv.sh /usr/local/tomcat/bin/setenv.sh
 
-# 1. Install Dejavu fonts. These are necessary for Java's AWT 
-#    to render text and other graphics components properly in a headless environment.
-#    'apk add' is the package manager for Alpine.
-RUN apt-get update && \
-    apt-get add --no-cache ttf-dejavu && \
-    rm -rf /var/cache/apk/*
-
-# Install Liberation fonts (Tinos Serif is metrically compatible with Times New Roman)
-RUN apt-get update && \
-    apt-get add --no-cache font-liberation
-
-RUN apt-get --no-cache add msttcorefonts-installer fontconfig && \
-    update-ms-fonts && \
-    fc-cache -f
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    fontconfig \
+    ttf-mscorefonts-installer && \
+    fc-cache -f && \
+    rm -rf /var/lib/apt/lists/*
 
 
 USER tomcat
