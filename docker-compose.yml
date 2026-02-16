@@ -1,48 +1,48 @@
 services:
-    facturex-tomcat:
+    faturex-tomcat:
         build:
             context: ./tomcat
-        container_name: facturex-tomcat
+        container_name: faturex-tomcat
         restart: always
         ports:
             - "8080:8080"
         networks:
             - snet
         depends_on:
-            - "facturex-database"
+            - "faturex-database"
         volumes:
             - ./war:/usr/local/tomcat/webapps
             - ./logs/server:/usr/local/tomcat/logs
             - ./logs/apps:/opt/tomcat/logs
             - ./apk:/opt/apk
 
-    facturex-database:
+    faturex-database:
         build: 
             context: ./database
         restart: always
         ports: 
             - "5432:5432"
-        container_name: facturex-postgres
+        container_name: faturex-postgres
         environment:
            - POSTGRES_USER=postgres
            - POSTGRES_PASSWORD=root
            - POSTGRES_DB=postgres
-           - POSTGRES_HOST=facturex-database
+           - POSTGRES_HOST=faturex-database
            - POSTGRES_MULTIPLE_DATABASES=faturex_db
         networks:
             - snet
         volumes:
             - db_data:/opt/postgres/data
-    facturex-web:
+    faturex-web:
         build: 
             context: ./nginx
         restart: always
-        container_name: facturex-web
+        container_name: faturex-web
         ports:
             - "80:80"
             - "443:443"
         depends_on:
-            - "facturex-tomcat"
+            - "faturex-tomcat"
         volumes:
             - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
             - ./data/certbot/conf:/etc/letsencrypt:ro
@@ -50,8 +50,8 @@ services:
         command: "/bin/sh -c 'while :; do sleep 12h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
         networks:
             - snet
-    facturex-certbot:
-        container_name: facturex-certbot
+    faturex-certbot:
+        container_name: faturex-certbot
         build:
             context: ./certbot
         volumes:
